@@ -13,10 +13,10 @@ public class LoadConfiguration {
 	public static void loadProperties(String file) {
 
 		Properties properties = new Properties();
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();    
-		InputStream stream = loader.getResourceAsStream(file);
-		
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();   
+
 		try {
+			InputStream stream = loader.getResourceAsStream(file);
 			properties.load(stream);
 			
 			if(properties!=null){
@@ -24,19 +24,22 @@ public class LoadConfiguration {
 				if(urlProperty!=null){
 					url= urlProperty;
 				}else {
-					System.err.println("Url is not defined!!! Will use default: failover://tcp://localhost:61616");
+					System.err.println("Url is not defined! Default value will be used: failover://tcp://localhost:61616");
 				}
 				
 				String queueProperty = properties.getProperty("queue");
 				if(queueProperty!=null){
 					queue = queueProperty;
 				}else {
-					System.err.println("Queue name is null!!!");
+					System.err.println("Queue name is null!");
 				}
 			}
 		} catch (IOException e) {
-			System.err.println("Unable to load properties file!!!");
+			System.err.println("Unable to load properties file!");
 			e.printStackTrace();
-		}	
+		}	catch (NullPointerException ex){
+			System.out.println("Missing properties file!");
+			ex.printStackTrace();
+		}
 	}
 }

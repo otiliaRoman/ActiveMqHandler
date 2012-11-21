@@ -53,8 +53,10 @@ public class ActiveMqConnection {
 			});
 		
 		} catch (JMSException e) {
+			System.err.println("Can't connect to ActiveMq! Check URL.");
 			e.printStackTrace();
 		} catch(Exception ex){
+			System.err.println("Problem connectiong to ActiveMq. Check the properties file and the ActiveMq instance");
 			ex.printStackTrace();
 		}
 	}
