@@ -24,7 +24,7 @@ public class ActiveMqConnection {
 	}
 
 	public void initialiseAMQ() {
-		LoadConfiguration.loadProperties("resources/config.properties");
+		LoadConfiguration.loadProperties("config.properties");
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(LoadConfiguration.url);
 		Connection connection;
 		
