@@ -16,7 +16,7 @@ public class LoadConfiguration {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();   
 
 		try {
-			InputStream stream = loader.getResourceAsStream(file);
+			InputStream stream = loader.getResourceAsStream(file);			
 			properties.load(stream);
 			
 			if(properties!=null){
