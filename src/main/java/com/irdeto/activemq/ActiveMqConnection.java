@@ -16,6 +16,9 @@ public class ActiveMqConnection {
 	
 	private static ActiveMqConnection instance = new ActiveMqConnection();
 	
+	ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(LoadConfiguration.url);
+	Connection connection;
+	
 	private ActiveMqConnection(){
 	}
 	
@@ -24,9 +27,8 @@ public class ActiveMqConnection {
 	}
 
 	public void initialiseAMQ() {
+		
 		LoadConfiguration.loadProperties("config.properties");
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(LoadConfiguration.url);
-		Connection connection;
 		
 		try {
 			connection = connectionFactory.createConnection();
@@ -58,6 +60,15 @@ public class ActiveMqConnection {
 		} catch(Exception ex){
 			System.err.println("Problem connectiong to ActiveMq. Check the properties file and the ActiveMq instance");
 			ex.printStackTrace();
+		}
+	}
+	
+	public void closeConnection(){
+		try {
+			connection.close();
+		} catch (JMSException e) {
+			System.err.println("Could not properly close the connection!");
+			e.printStackTrace();
 		}
 	}
 }

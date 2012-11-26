@@ -16,4 +16,10 @@ public class ActiveMqHandler extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		ActiveMqConnection.getInstance().initialiseAMQ();
 	}
+	
+	@Override
+	public void destroy() {
+		ActiveMqConnection.getInstance().closeConnection();
+		super.destroy();
+	}
 }
